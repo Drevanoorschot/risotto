@@ -1,1 +1,7 @@
 /* Override this file to customise the theme's CSS for your site */
+.page__popup {
+    grid-area: body;
+    background-color: var(--off-bg);
+    overflow-wrap: break-word;
+    color: var(--off-fg);
+}

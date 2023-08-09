@@ -6,10 +6,49 @@
 </div>
 {{ end }}
 
+<script>
+    function addListeners(itemTitle) {
+    const showButton = document.getElementById(`show-${itemTitle}`);
+    const dialog = document.getElementById(`${itemTitle}-dialog`);
+    const closeButton = document.getElementById(`close-${itemTitle}`);
+
+    showButton.addEventListener("click", () => {
+        dialog.showModal();
+    });
+
+    closeButton.addEventListener("click", () => {
+        dialog.close();
+    });
+}
+</script>
+
 <ul class="aside__social-links">
     {{ range $item := .Site.Params.socialLinks }}
-    <li>
-        <a href="{{ $item.url }}" rel="me" aria-label="{{ $item.title }}" title="{{ $item.title }}"><i class="{{ $item.icon }}" aria-hidden="true"></i></a>&nbsp;
-    </li>
+    {{ if $item.url }}
+        <li>
+            <a href="{{ $item.url }}" rel="me" aria-label="{{ $item.title }}" title="{{ $item.title }}"><i class="{{ $item.icon }}" aria-hidden="true"></i></a>
+        </li>
+    {{ else }}
+        <li>
+            <a href="javascript:void(0);" rel="me" aria-label="{{ $item.title }}" title="{{ $item.title }}" id="show-{{ $item.title }}">
+                <i class="{{ $item.icon }}" aria-hidden="true"></i>
+            </a>
+        </li>
+        <dialog id="{{ $item.title }}-dialog" class="page__popup" style="text-align: center;">
+            {{ if $item.popupText }}
+            <p>{{ $item.popupText }}</p>
+            {{ else if $item.popupImage }}
+            {{ $image := resources.GetMatch $item.popupImage }}
+            {{ $image := $image.Resize "300x"}}
+            {{ with $image }}
+            <p><img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}"></p>
+            {{ end }}
+            {{ end }}
+            <a id="close-{{$item.title}}" href="javascript:void(0);">x close</a>
+        </dialog>
+        <script>
+            addListeners({{ $item.title }});
+        </script>
+    {{ end }}
     {{ end }}
 </ul>
