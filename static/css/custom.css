@@ -10,3 +10,26 @@ img.emoji {
     height: 1rem;
     pointer-events: none;
 }
+
+.tc__good {
+    color: lime;
+}
+
+.tc__medium {
+    color: yellow;
+}
+
+.tc__bad {
+    color: orange;
+}
+
+.overflow-x-box::-webkit-scrollbar {
+    display: none;
+}
+
+.overflow-x-box {
+    overflow-x: scroll;
+    width: 100%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
