@@ -5,3 +5,8 @@
     overflow-wrap: break-word;
     color: var(--off-fg);
 }
+
+img.emoji {
+    height: 1rem;
+    pointer-events: none;
+}
